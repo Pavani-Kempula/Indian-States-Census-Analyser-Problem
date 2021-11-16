@@ -33,4 +33,18 @@ public class IndianStateCensusAnalyzerTest {
             Assert.assertEquals(CustomExceptionService.ExceptionType.FILE_NOT_FOUND, e.type);
         }
     }
+
+    @Test
+    public void givenWrongFileExtention_ShouldReturnWrongFileType() {
+        String fileName = "/IndiaStateCensusData.txt";
+        IndianStateCensusAnalyzer censusService = new IndianStateCensusAnalyzer();
+        try {
+            List<StateCensus> stateCencesList = censusService.readInIndiaStateCensusData(fileName);
+            Assert.assertEquals(29, stateCencesList.size());
+        }
+        catch (CustomExceptionService e)
+        {
+            Assert.assertEquals(CustomExceptionService.ExceptionType.WRONG_FILE_TYPE, e.type);
+        }
+    }
 }
