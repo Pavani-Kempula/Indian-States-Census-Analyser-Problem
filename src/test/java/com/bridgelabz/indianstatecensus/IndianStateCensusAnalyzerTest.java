@@ -15,8 +15,22 @@ import java.util.List;
 public class IndianStateCensusAnalyzerTest {
     @Test
     public void givenReadDataFromIndianCensus_ShouldReturnCountDataPresentInFile() {
+        String fileName = "/IndiaStateCensusData.csv";
         IndianStateCensusAnalyzer censusService = new IndianStateCensusAnalyzer();
-        List<StateCensus> stateCensusList = censusService.readInIndiaStateCensusData();
+        List<StateCensus> stateCensusList = censusService.readInIndiaStateCensusData(fileName);
         Assert.assertEquals(29, stateCensusList.size());
+    }
+
+    @Test
+    public void givenWrongFile_ShouldReturnFileNotFound() {
+        String fileName = "/IndiaStateCensus.csv";
+        IndianStateCensusAnalyzer censusService = new IndianStateCensusAnalyzer();
+        try {
+            List<StateCensus> stateCensusList = censusService.readInIndiaStateCensusData(fileName);
+            Assert.assertEquals(29, stateCensusList.size());
+        }
+        catch (CustomExceptionService e) {
+            Assert.assertEquals(CustomExceptionService.ExceptionType.FILE_NOT_FOUND, e.type);
+        }
     }
 }
