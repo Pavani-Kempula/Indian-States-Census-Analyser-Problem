@@ -11,12 +11,13 @@ import java.util.List;
 
 public class IndianStateCensusAnalyzer {
     private static final String FILE_PATH = "C:\\Users\\Pavani\\IdeaProjects\\IndianStatesCensusAnalyser\\src\\resources";
-    private static final String INDIAN_STATE_CENSUS = "/IndiaStateCensusData.csv";
+    private static final String INDIAN_STATE_CENCUS = "/IndiaStateCensusData.csv";
 
     public List<StateCensus> readInIndiaStateCensusData() {
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(FILE_PATH+INDIAN_STATE_CENSUS));
-            CsvToBean<StateCensus> csvToBean = new CsvToBeanBuilder<StateCensus>(reader)
+            Reader reader = Files.newBufferedReader(Paths.get(FILE_PATH+INDIAN_STATE_CENCUS));
+            CsvToBean<StateCensus> csvToBean;
+            csvToBean = new CsvToBeanBuilder<StateCensus>(reader)
                     .withType(StateCensus.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
