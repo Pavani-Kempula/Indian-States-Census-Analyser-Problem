@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class IndianStateCensusAnalyzer {
-    private static final String FILE_PATH = "C:\\Users\\mihir\\IdeaProjects\\IndianStatesCensusAnalyser\\src\\resources";
+    private static final String FILE_PATH = "C:\\Users\\pavani\\IdeaProjects\\IndianStatesCensusAnalyser\\src\\resources";
 
     public List<StateCensus> readInIndiaStateCensusData(String FileName) {
         try {
