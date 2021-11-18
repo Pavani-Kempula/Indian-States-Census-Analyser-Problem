@@ -47,4 +47,17 @@ public class IndianStateCensusAnalyzerTest {
             Assert.assertEquals(CustomExceptionService.ExceptionType.WRONG_FILE_TYPE, e.type);
         }
     }
+
+    @Test
+    public void givenWrongFileHeaders_ShouldReturnWrongHeader() {
+        String fileName = "/IndiaStateCensusDataWrongHeaders.csv";
+        IndianStateCensusAnalyzer censusService = new IndianStateCensusAnalyzer();
+        try {
+            List<StateCensus> stateCencesList = censusService.readInIndiaStateCensusData(fileName);
+            Assert.assertEquals(29, stateCencesList.size());
+        }
+        catch (CustomExceptionService e) {
+            Assert.assertEquals(CustomExceptionService.ExceptionType.WRONG_HEADER, e.type);
+        }
+    }
 }
