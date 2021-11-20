@@ -38,4 +38,17 @@ public class IndianStateCodeTest {
             Assert.assertEquals(CustomExceptionService.ExceptionType.FILE_NOT_FOUND, e.type);
         }
     }
+
+    @Test
+    public void givenWrongFileHeaders_ShouldReturnWrongHeader() {
+        String fileName = "/IndiaStateCensusDataWrongHeaders.csv";
+        IndianStateCodeService codeService = new IndianStateCodeService ();
+        try {
+            List<StateCode> stateCodeList = codeService.readIndiaStatCode(fileName);
+            Assert.assertEquals(37, stateCodeList.size());
+        }
+        catch (CustomExceptionService e) {
+            Assert.assertEquals(CustomExceptionService.ExceptionType.WRONG_HEADER, e.type);
+        }
+    }
 }
