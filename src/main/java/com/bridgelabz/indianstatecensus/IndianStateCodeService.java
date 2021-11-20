@@ -15,11 +15,11 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-public class IndianStateCensusAnalyzer {
+public class IndianStateCodeService {
     private static final String FILE_PATH = "C:\\Users\\pavani\\IdeaProjects\\IndianStatesCensusAnalyser\\src\\resources";
-    String[] headers = {"State", "Population", "AreaInSqKm", "DensityPerSqKm"};
+    String[] headers = {"SrNo","State Name","TIN","StateCode"};
 
-    public List<StateCensus> readInIndiaStateCensusData(String fileName)
+    public List<StateCode> readIndiaStatCode(String fileName)
     {
         try
         {
@@ -32,14 +32,14 @@ public class IndianStateCensusAnalyzer {
             String fileHeaders[] = new CSVReader(new FileReader(FILE_PATH+fileName)).readNext();
             if (!Arrays.toString(fileHeaders).equals(Arrays.toString(headers)))
             {
-                throw new CustomExceptionService(CustomExceptionService.ExceptionType.WRONG_HEADER,"enter proper extension");
+                throw new CustomExceptionService(CustomExceptionService.ExceptionType.WRONG_HEADER,"Header missmatch");
             }
-            Reader reader = Files.newBufferedReader(Paths.get(FILE_PATH+fileName));   //reader to read contacts
-            CsvToBean<StateCensus> csvToBean = new CsvToBeanBuilder<StateCensus>(reader)
-                    .withType(StateCensus.class)
+            Reader reader = Files.newBufferedReader(Paths.get(FILE_PATH+fileName));
+            CsvToBean<StateCode> csvToBean = new CsvToBeanBuilder<StateCode>(reader)
+                    .withType(StateCode.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-            return csvToBean.parse();   //Converting them to list
+            return csvToBean.parse();
         }
         catch (NoSuchFileException e) {
             throw new CustomExceptionService(CustomExceptionService.ExceptionType.FILE_NOT_FOUND,"File Not Found");
@@ -47,9 +47,7 @@ public class IndianStateCensusAnalyzer {
         catch (FileNotFoundException e) {
             throw new CustomExceptionService(CustomExceptionService.ExceptionType.FILE_NOT_FOUND,"File Not Found");
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        } catch (CsvValidationException e) {
+        catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
         return null;
